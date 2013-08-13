@@ -1,7 +1,7 @@
 /**
  * 
  */
-package idv.zanyking.jaxrs.model;
+package com.mycom.jaxrs.survey.model;
 
 /**
  * @author Ian YT Tsai (Zanyking)

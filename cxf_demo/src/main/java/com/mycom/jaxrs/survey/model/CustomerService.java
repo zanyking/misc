@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package idv.zanyking.jaxrs.model;
+package com.mycom.jaxrs.survey.model;
 
 import java.util.HashMap;
 import java.util.Map;

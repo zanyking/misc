@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package idv.zanyking.jaxrs;
+package com.mycom.jaxrs.survey.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,6 @@ import javax.ws.rs.Produces;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Order")
 public class Order {
     private long id;
     private String description;

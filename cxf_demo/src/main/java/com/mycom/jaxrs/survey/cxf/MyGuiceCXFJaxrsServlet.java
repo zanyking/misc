@@ -1,26 +1,19 @@
 /**
  * 
  */
-package idv.zanyking.jaxrs.config;
+package com.mycom.jaxrs.survey.cxf;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import idv.zanyking.jaxrs.model.CustomerService;
-import idv.zanyking.jaxrs.model.User;
-
-import javax.inject.Inject;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
-import org.apache.cxf.interceptor.FaultOutInterceptor;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
-import org.apache.cxf.jaxrs.lifecycle.ResourceProvider;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
-import org.apache.cxf.jaxrs.provider.aegis.AegisJSONProvider;
 import org.apache.cxf.jaxrs.provider.jsonp.JsonpInInterceptor;
 import org.apache.cxf.jaxrs.provider.jsonp.JsonpPostStreamInterceptor;
 import org.apache.cxf.jaxrs.provider.jsonp.JsonpPreStreamInterceptor;
@@ -29,10 +22,11 @@ import org.apache.cxf.transport.servlet.CXFNonSpringServlet;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Module;
+import com.mycom.jaxrs.survey.model.CustomerService;
+import com.mycom.jaxrs.survey.model.HelloWorld;
+import com.mycom.jaxrs.survey.model.User;
 
 /**
  * @author Ian YT Tsai (Zanyking)
@@ -44,7 +38,6 @@ public class MyGuiceCXFJaxrsServlet extends CXFNonSpringServlet {
 	@Override
 	public void init(ServletConfig servletConfig) throws ServletException {
 		super.init(servletConfig);
-		// You could add the endpoint publish codes here
 		
 		Bus bus = this.getBus();
 		BusFactory.setDefaultBus(bus);
@@ -63,11 +56,6 @@ public class MyGuiceCXFJaxrsServlet extends CXFNonSpringServlet {
 		configResources(jaxrsFacBean);
 		
 		jaxrsFacBean.setProvider(new JacksonJsonProvider());
-//		jaxrsFacBean.setProvider(new AegisJSONProvider());
-		// jaxrsBean.
-		// Endpoint.publish("/Greeter", new GreeterImpl());
-
-		// You can als use the simple frontend API to do this
 		jaxrsFacBean.create();
 	}
 	/**
@@ -109,8 +97,9 @@ public class MyGuiceCXFJaxrsServlet extends CXFNonSpringServlet {
 		Injector injector = Guice.createInjector(new AbstractModule() {
 			@Override
 			protected void configure() {
-				bind(User.class).toInstance(new User("Anderson Tai"));
-				bind(CustomerService.class);				
+				bind(User.class).toInstance(new User("Zanyking"));
+				bind(CustomerService.class);
+				bind(HelloWorld.class);
 			}
 		});
 		
@@ -118,37 +107,11 @@ public class MyGuiceCXFJaxrsServlet extends CXFNonSpringServlet {
 		jaxrsFacBean.setResourceProvider(CustomerService.class, 
 				new SingletonResourceProvider(
 						injector.getInstance(CustomerService.class)));
+		
+		jaxrsFacBean.setResourceClasses(HelloWorld.class);
+		jaxrsFacBean.setResourceProvider(HelloWorld.class, 
+				new SingletonResourceProvider(
+						injector.getInstance(HelloWorld.class)));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

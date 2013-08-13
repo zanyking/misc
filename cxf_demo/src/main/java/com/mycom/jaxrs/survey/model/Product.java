@@ -16,11 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package idv.zanyking.jaxrs;
+package com.mycom.jaxrs.survey.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Product")
 public class Product {
     private long id;
     private String description;
